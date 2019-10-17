@@ -1,9 +1,11 @@
-import React, { Component } from "react";
+import React, { Fragment, Component } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import axios from "axios";
 import "./App.css";
 import Navbar from "./components/layout/Navbar";
 import Users from "./components/user/Users";
 import Search from "./components/search/Search";
+import About from "./components/pages/About";
 
 class App extends Component {
   state = {
@@ -47,13 +49,32 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <Navbar />
-        <div className="container">
-          <Search searchUser={this.searchUser} clearUser={this.clearUser} />
-          <Users loading={this.state.loading} users={this.state.users} />
+      <Router>
+        <div className="App">
+          <Navbar />
+          <div className="container">
+            <Switch>
+              <Route path="/about" exact component={About} />
+              <Route
+                exact
+                path="/"
+                render={props => (
+                  <Fragment>
+                    <Search
+                      searchUser={this.searchUser}
+                      clearUser={this.clearUser}
+                    />
+                    <Users
+                      loading={this.state.loading}
+                      users={this.state.users}
+                    />
+                  </Fragment>
+                )}
+              />
+            </Switch>
+          </div>
         </div>
-      </div>
+      </Router>
     );
   }
 }
