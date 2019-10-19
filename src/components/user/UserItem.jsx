@@ -1,8 +1,9 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
 const UserItem = props => {
-  const { login, avatar_url, html_url } = props.user;
+  const { login, avatar_url } = props.user;
   return (
     <div className="card text-center">
       <div className="card-body">
@@ -13,9 +14,9 @@ const UserItem = props => {
           style={{ width: "100px" }}
         />
         <h3>{login}</h3>
-        <a href={html_url} className="btn btn-sm btn-dark">
+        <Link to={`/user/${login}`} className="btn btn-sm btn-dark">
           Go to profile
-        </a>
+        </Link>
       </div>
     </div>
   );
