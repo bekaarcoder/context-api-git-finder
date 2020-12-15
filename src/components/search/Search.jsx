@@ -1,19 +1,22 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import GithubContext from "../../context/github/context";
 
-const Search = ({ searchUser, clearUser }) => {
+const Search = ({ clearUser }) => {
+  const githubContext = useContext(GithubContext);
+
   const [username, setUsername] = useState("");
   const [error, setError] = useState("");
 
-  const onChange = e => {
+  const onChange = (e) => {
     setUsername(e.target.value);
   };
 
-  const onSubmit = e => {
+  const onSubmit = (e) => {
     e.preventDefault();
     if (username === "") {
       setError("Please enter something.");
     } else {
-      searchUser(username);
+      githubContext.searchUser(username);
       setUsername("");
       setError("");
     }
