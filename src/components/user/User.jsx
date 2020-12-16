@@ -1,8 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
+import GithubContext from "../../context/github/context";
 
-const User = ({ user, loading, getUserDetails, match }) => {
+const User = ({ match }) => {
+  const githubContext = useContext(GithubContext);
+  const { loading, user } = githubContext;
+
   useEffect(() => {
-    getUserDetails(match.params.username);
+    githubContext.getUserDetails(match.params.username);
     // eslint-disable-next-line
   }, []);
 
@@ -14,7 +18,7 @@ const User = ({ user, loading, getUserDetails, match }) => {
     public_repos,
     followers,
     following,
-    html_url
+    html_url,
   } = user;
   if (loading) {
     return (

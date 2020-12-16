@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import GithubContext from "../../context/github/context";
 
-const Search = ({ clearUser }) => {
+const Search = () => {
   const githubContext = useContext(GithubContext);
 
   const [username, setUsername] = useState("");
@@ -20,6 +20,10 @@ const Search = ({ clearUser }) => {
       setUsername("");
       setError("");
     }
+  };
+
+  const handleClearUser = () => {
+    githubContext.clearUser();
   };
 
   return (
@@ -47,7 +51,7 @@ const Search = ({ clearUser }) => {
             <button
               type="button"
               className="btn btn-danger mb-2"
-              onClick={clearUser}
+              onClick={handleClearUser}
             >
               Clear Search
             </button>

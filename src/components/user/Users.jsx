@@ -1,9 +1,18 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import UserItem from "./UserItem";
 import PropTypes from "prop-types";
+import GithubContext from "../../context/github/context";
 
-const Users = props => {
-  if (props.loading) {
+const Users = () => {
+  const githubContext = useContext(GithubContext);
+  const { loading, users } = githubContext;
+
+  useEffect(() => {
+    githubContext.fetchUsers();
+    // eslint-disable-next-line
+  }, []);
+
+  if (loading) {
     return (
       <div className="row mt-4">
         <div className="col-md-12">
@@ -14,18 +23,13 @@ const Users = props => {
   }
   return (
     <div className="row mt-4">
-      {props.users.map(user => (
+      {users.map((user) => (
         <div className="col-md-4 mb-3" key={user.id}>
           <UserItem user={user} />
         </div>
       ))}
     </div>
   );
-};
-
-Users.propTypes = {
-  users: PropTypes.array.isRequired,
-  loading: PropTypes.bool.isRequired
 };
 
 export default Users;
